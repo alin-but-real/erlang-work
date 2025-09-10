@@ -1,5 +1,7 @@
 -module(rudy).
 -export([init/1]).
+-export([start/1]).
+-export([stop/0]).
 
 init(Port) ->
     Opt = [list, {active, false}, {reuseaddr, true}],
@@ -16,7 +18,8 @@ init(Port) ->
 handler(Listen) ->
     case gen_tcp:accept(Listen) of
         {ok, Client} ->
-            request(Client); %filled in
+            request(Client), %filled in
+            handler(Listen);
         {error, Error} ->
             io:format("rudy: error (handler): ~w~n", [Error])
     end.
@@ -35,3 +38,9 @@ request(Client) ->
 
 reply({{get, URI, _}, _, _}) ->
     http:ok(URI).
+
+start(Port) ->
+    register(rudy, spawn(fun() -> init(Port) end)).
+
+stop() ->
+    exit(whereis(rudy), "time to die").
