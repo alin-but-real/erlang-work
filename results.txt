@@ -1,0 +1,28 @@
+26> c(http).
+{ok,http}
+27> c(rudy).
+{ok,rudy}
+28> rudy:start(8080).
+true
+29> c(test).
+{ok,test}
+30> test:bench(localhost,8080).
+4719615
+31> test:bench(localhost,8080).
+4653158
+32> test:bench(localhost,8080).
+4677426
+33> test:bench(localhost,8080).
+4653567
+34> test:bench(localhost,8080).
+4669029
+35> test:bench(localhost,8080).
+4671283
+36> test:bench(localhost,8080).
+4659199
+37> test:bench(localhost,8080).
+4640972
+38> test:bench(localhost,8080).
+4663807
+39> test:bench(localhost,8080).
+4655205
